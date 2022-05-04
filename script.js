@@ -6,11 +6,6 @@ function computerPlay() {
     return choices[pick];
 }
 
-function playerPlay() {
-    pick = prompt('Choose your play: ');
-
-    return pick
-}
 
 function playRound(pcSelection, playerSelection) {
     pc = pcSelection.toLowerCase();
@@ -29,40 +24,55 @@ function playRound(pcSelection, playerSelection) {
 }
 
 
-function game() {
+let playerScore = 0;
+let pcScore = 0;
 
-    let pcScore = 0;
-    let playerScore = 0;
+const btnRock = document.getElementById('btn-rock');
+const btnPaper = document.getElementById('btn-paper');
+const btnScissors = document.getElementById('btn-scissors');
 
-    for (let i = 1; i <= 5; i++) {
-
-        let pc = computerPlay();
-        let player = playerPlay();
-
-        result = playRound(pc, player);
-
-        switch (result) {
-            case 'Tie':
-                console.log(`Tie! Both chose ${player}`);
-                break;
-            case 'Win':
-                console.log(`You Win! ${player} beats ${pc}`);
-                playerScore++;
-                break;
-            case 'Lose':
-                console.log(`You Lose! ${pc} beats ${player}`);
-                pcScore++;
-                break;
-        }
-    }
-
-    if (playerScore > pcScore) {
-        console.log('You won the game, Congrats!');
-    } else if (playerScore < pcScore){
-        console.log('You lost the game, better luck next time!');
-    } else {
-        console.log("Tie! That's OK I guess...")
+btnRock.onclick = () => {
+    let result = playRound(computerPlay(), 'rock');
+    if (result == 'Win') {
+        playerScore++;
+    } else if (result == 'Lose') {
+        pcScore++;
     }
 }
 
-game()
+
+// function game() {
+
+//     let pcScore = 0;
+//     let playerScore = 0;
+
+//     for (let i = 1; i <= 5; i++) {
+
+//         let pc = computerPlay();
+//         let player = playerPlay();
+
+//         result = playRound(pc, player);
+
+//         switch (result) {
+//             case 'Tie':
+//                 console.log(`Tie! Both chose ${player}`);
+//                 break;
+//             case 'Win':
+//                 console.log(`You Win! ${player} beats ${pc}`);
+//                 playerScore++;
+//                 break;
+//             case 'Lose':
+//                 console.log(`You Lose! ${pc} beats ${player}`);
+//                 pcScore++;
+//                 break;
+//         }
+//     }
+
+//     if (playerScore > pcScore) {
+//         console.log('You won the game, Congrats!');
+//     } else if (playerScore < pcScore){
+//         console.log('You lost the game, better luck next time!');
+//     } else {
+//         console.log("Tie! That's OK I guess...")
+//     }
+// }

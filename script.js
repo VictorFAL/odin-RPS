@@ -1,3 +1,32 @@
+let playerScore = 0;
+let pcScore = 0;
+
+let spanPScore = document.getElementById('player-score');
+let spanPcScore = document.getElementById('pc-score');
+spanPScore.innerText = `Player: ${playerScore}`;
+spanPcScore.innerText = `Computer: ${pcScore}`;
+
+const gameBtns = document.querySelectorAll('.btn-game');
+
+gameBtns.forEach((btn) => {
+    btn.addEventListener('click', function() {
+        let roundResult = playRound(computerPlay(), btn.innerText);
+
+        if (roundResult == 'Win') {
+            playerScore++;
+            spanPScore.innerText = `Player: ${playerScore}`;
+            checkWin();
+        } else if (roundResult == 'Lose') {
+            pcScore++;
+            spanPcScore.innerText = `Computer: ${pcScore}`;
+            checkWin();
+        }
+    });
+});
+
+
+// ========== FUNCTIONS ==========
+
 function computerPlay() {
     const choices = ['Rock', 'Paper', 'Scissors'];
 
@@ -24,55 +53,22 @@ function playRound(pcSelection, playerSelection) {
 }
 
 
-let playerScore = 0;
-let pcScore = 0;
+function checkWin () {
+    const result = document.getElementById('result');
 
-const btnRock = document.getElementById('btn-rock');
-const btnPaper = document.getElementById('btn-paper');
-const btnScissors = document.getElementById('btn-scissors');
+    // show who won
+    if (playerScore == 5) {
+        result.innerText = 'YOU WON!';
+        result.style.color = 'green';
+    } else if (pcScore == 5) {
+        result.innerText = 'YOU LOSE!';
+        result.style.color = 'red';
+    }
 
-btnRock.onclick = () => {
-    let result = playRound(computerPlay(), 'rock');
-    if (result == 'Win') {
-        playerScore++;
-    } else if (result == 'Lose') {
-        pcScore++;
+    // disable the game's buttons
+    if (result.innerText) {
+        gameBtns.forEach((btn) => {
+            btn.disabled = true;
+        })
     }
 }
-
-
-// function game() {
-
-//     let pcScore = 0;
-//     let playerScore = 0;
-
-//     for (let i = 1; i <= 5; i++) {
-
-//         let pc = computerPlay();
-//         let player = playerPlay();
-
-//         result = playRound(pc, player);
-
-//         switch (result) {
-//             case 'Tie':
-//                 console.log(`Tie! Both chose ${player}`);
-//                 break;
-//             case 'Win':
-//                 console.log(`You Win! ${player} beats ${pc}`);
-//                 playerScore++;
-//                 break;
-//             case 'Lose':
-//                 console.log(`You Lose! ${pc} beats ${player}`);
-//                 pcScore++;
-//                 break;
-//         }
-//     }
-
-//     if (playerScore > pcScore) {
-//         console.log('You won the game, Congrats!');
-//     } else if (playerScore < pcScore){
-//         console.log('You lost the game, better luck next time!');
-//     } else {
-//         console.log("Tie! That's OK I guess...")
-//     }
-// }
